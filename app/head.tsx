@@ -1,4 +1,6 @@
 export default function Head() {
+  const a = ""
+
   return (
     <>
       <title>Create Next App</title>
