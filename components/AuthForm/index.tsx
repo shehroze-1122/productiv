@@ -85,7 +85,7 @@ const AuthForm: FC<AuthForm> = ({ mode }) => {
           />
         </div>
       ))}
-      <div className="w-full flex justify-between">
+      <div className="w-full flex flex-col sm:flex-row justify-between">
         <div>
           <Button type="submit" intent="secondary">
             {config.buttonText}

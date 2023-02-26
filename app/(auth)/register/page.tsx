@@ -4,7 +4,7 @@ import Card from "@/components/common/Card"
 
 const Register = () => {
   return (
-    <Card className="w-1/2">
+    <Card className="min-w-1/3">
       <div className="w-full">
         <div className="text-center">
           <h2 className="text-3xl mb-2">Create a new account</h2>
