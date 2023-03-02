@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef, FC, HTMLAttributes } from "react"
+import React, { ComponentPropsWithoutRef, FC } from "react"
 import { cva, VariantProps } from "class-variance-authority"
 
 const buttonClasses = cva(
@@ -55,7 +55,7 @@ const Button: FC<Button> = ({
   ...props
 }) => {
   return (
-    <button className={buttonClasses({ intent, size, className })}>
+    <button className={buttonClasses({ intent, size, className })} {...props}>
       {children}
     </button>
   )
