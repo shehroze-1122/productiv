@@ -21,22 +21,32 @@ const AuthForm: FC<AuthForm> = ({ mode }) => {
 
   const router = useRouter()
   const [state, setState] = useState<typeof initialState>(initialState)
-  console.log({ state })
+  const [authError, setAuthError] = useState<null | string>(null)
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setLoading(true)
     try {
+      let error
       if (mode === "register") {
-        await register(state)
+        const response = await register(state)
+        error = response.error
       } else {
-        await signin(state)
+        const response = await signin(state)
+        error = response.error
       }
 
-      router.replace("/home")
+      if (!error) {
+        setAuthError(null)
+        setState(initialState)
+        return router.replace("/home")
+      }
+      setAuthError(error)
     } catch (e) {
       console.log(e)
     } finally {
-      setState(initialState)
+      setLoading(false)
     }
   }
 
@@ -85,10 +95,11 @@ const AuthForm: FC<AuthForm> = ({ mode }) => {
           />
         </div>
       ))}
+      {authError && <div className="text-red-700 mb-4">{authError}</div>}
       <div className="w-full flex flex-col sm:flex-row justify-between">
         <div>
-          <Button type="submit" intent="secondary">
-            {config.buttonText}
+          <Button type="submit" intent="secondary" disabled={!loading}>
+            {loading ? "Loading..." : config.buttonText}
           </Button>
         </div>
         <div className="mt-2">

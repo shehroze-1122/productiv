@@ -2,45 +2,49 @@ type Fetcher = {
   url: string
   method: "GET" | "POST" | "PUT" | "DELETE"
   body?: { [k: string]: any }
-  json?: Boolean
+  json?: boolean
+  headers?: { [k: string]: any }
 }
-export const fetcher = async ({ url, method, body, json = true }: Fetcher) => {
+
+const defaultHeader = {
+  Accept: "application/json",
+  "Content-Type": "application/json"
+}
+
+export const fetcher = async ({
+  url,
+  method,
+  body,
+  headers = defaultHeader,
+  json = true
+}: Fetcher) => {
   const response = await fetch(url, {
     method,
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    },
+    headers,
     ...(body && { body: JSON.stringify(body) })
   })
 
-  if (!response.ok) {
-    throw new Error("Something wernt wrong")
-  }
   if (json) {
-    const data = await response.json()
-    return data
+    return response.json()
   }
 }
 
-type User = {
-  firstName: string
-  lastName: string
-  email: string
-  password: string
+type ApiResponse = {
+  error?: string
 }
 
-export const register = (user: User) => {
+export const register = (user: Omit<User, "id">) => {
   return fetcher({
     url: "/api/register",
     method: "POST",
     body: user
-  })
+  }) as Promise<ApiResponse>
 }
+
 export const signin = (user: Pick<User, "email" | "password">) => {
   return fetcher({
     url: "/api/signin",
     method: "POST",
     body: user
-  })
+  }) as Promise<ApiResponse>
 }
