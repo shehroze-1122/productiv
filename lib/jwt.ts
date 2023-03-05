@@ -1,6 +1,6 @@
 import { jwtVerify, SignJWT } from "jose"
 
-type Payload = { email: string; id: string }
+export type Payload = { email: string; id: string }
 
 export const createJWT = (user: Payload) => {
   const iat = Math.floor(Date.now() / 1000) // Date.now() => milliseconds => /1000 => seconds
@@ -19,4 +19,10 @@ export const validateJWT = async (jwt: string) => {
     new TextEncoder().encode(process.env.JWT_SECRET)
   )
   return payload as Payload
+}
+
+export const isError = (
+  payload: Payload | { error: string }
+): payload is { error: string } => {
+  return (payload as { error: string }).error !== undefined
 }

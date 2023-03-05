@@ -1,6 +1,5 @@
 import bcrypt from "bcrypt"
-import Cookies from "js-cookie"
-import { db } from "./db"
+import { NextApiRequest } from "next"
 import { validateJWT } from "./jwt"
 
 export const hashPassword = (password: string) => bcrypt.hash(password, 10)
@@ -10,22 +9,14 @@ export const comparePasswords = (
   hashedPassword: string
 ) => bcrypt.compare(textPassword, hashedPassword)
 
-export const getUserFromCookie = async () => {
-  const jwt = Cookies.get(process.env.COOKIE_NAME as string)
+export const validateRequest = async (req: NextApiRequest) => {
+  const jwt = req.cookies[process.env.COOKIE_NAME as string]
 
-  if (!jwt) {
-    throw new Error("Unable to authenticate. Token not found.")
-  }
+  if (!jwt) return { error: "No un-authorized access" }
+
   try {
-    const { id } = await validateJWT(jwt)
-
-    const user = await db.user.findUnique({
-      where: {
-        id
-      }
-    })
-    return user
+    return validateJWT(jwt)
   } catch (error) {
-    throw new Error("Failed to verify the token.")
+    return { error: "No un-authorized access" }
   }
 }

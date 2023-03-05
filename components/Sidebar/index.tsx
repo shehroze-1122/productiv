@@ -26,7 +26,7 @@ const links: Link[] = [
 
 const Sidebar = () => {
   return (
-    <Card className="h-full w-40 flex items-center justify-center flex-wrap">
+    <Card className="h-full w-20 flex items-center justify-center flex-wrap px-6 py-4">
       {links.map((link) => (
         <SidebarLink
           key={link.id}

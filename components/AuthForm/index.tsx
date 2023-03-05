@@ -98,7 +98,7 @@ const AuthForm: FC<AuthForm> = ({ mode }) => {
       {authError && <div className="text-red-700 mb-4">{authError}</div>}
       <div className="w-full flex flex-col sm:flex-row justify-between">
         <div>
-          <Button type="submit" intent="secondary" disabled={!loading}>
+          <Button type="submit" intent="secondary" disabled={loading}>
             {loading ? "Loading..." : config.buttonText}
           </Button>
         </div>

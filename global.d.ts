@@ -5,3 +5,9 @@ type User = {
   email: string
   password: string
 }
+
+type Project = {
+  name: string
+  description?: string
+  due?: Date
+}

@@ -4,7 +4,7 @@ import Card from "@/components/common/Card"
 
 const SignIn = () => {
   return (
-    <Card className="min-w-1/3">
+    <Card className="min-w-1/3 px-10 py-4">
       <div className="w-full">
         <div className="text-center">
           <h2 className="text-3xl mb-2">Welcome Back</h2>

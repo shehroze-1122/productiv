@@ -48,3 +48,11 @@
 [data-nextjs-scroll-focus-boundary] {
   display: contents;
 }
+
+progress::-webkit-progress-value {
+  background: rgb(246, 28, 246);
+}
+
+progress::-webkit-progress-bar {
+  background: rgb(245, 152, 245);
+}

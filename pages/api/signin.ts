@@ -8,7 +8,8 @@ export default async function signin(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (!(req.method === "POST")) return res.status(402).end()
+  if (!(req.method === "POST"))
+    return res.status(405).json({ error: "Incorrect method" })
 
   const { email, password } = req.body as Pick<User, "email" | "password">
 

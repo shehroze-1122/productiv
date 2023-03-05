@@ -48,3 +48,19 @@ export const signin = (user: Pick<User, "email" | "password">) => {
     body: user
   }) as Promise<ApiResponse>
 }
+
+export const createProject = (dataObj: Project) => {
+  return fetcher({
+    url: "/api/project",
+    method: "POST",
+    body: dataObj
+  }) as Promise<ApiResponse>
+}
+
+export const updateProject = (id: string, dataObj: Project) => {
+  return fetcher({
+    url: `/api/project/${id}`,
+    method: "PUT",
+    body: dataObj
+  }) as Promise<ApiResponse>
+}

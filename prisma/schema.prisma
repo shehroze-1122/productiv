@@ -39,8 +39,7 @@ model Project {
 
   tasks Task[]
 
-  @@unique([ownerId, name])
-  @@index([ownerId, id])
+  @@unique([ownerId, id])
 }
 
 enum TASK_STATUS {
