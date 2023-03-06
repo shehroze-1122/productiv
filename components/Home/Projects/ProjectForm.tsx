@@ -28,6 +28,7 @@ type ProjectFormProps = ProjectForm & {
 
 function ProjectForm(props: AddProjectForm): JSX.Element
 function ProjectForm(props: EditProjectForm): JSX.Element
+function ProjectForm(props: ProjectFormProps): JSX.Element
 function ProjectForm({
   onClose,
   mode = "add",

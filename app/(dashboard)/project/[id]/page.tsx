@@ -30,6 +30,7 @@ const ProjectDetails = async ({ params }: { params: { id: string } }) => {
         <div className="flex justify-between">
           <h1 className="text-2xl text-gray-700">{name}</h1>
           <CreateNewProject
+            mode="add"
             initialData={{
               name,
               id,
@@ -53,7 +54,13 @@ const ProjectDetails = async ({ params }: { params: { id: string } }) => {
         <p className="text-gray-500 mt-3">{description}</p>
       </Card>
 
-      <TasksCard tasks={project.tasks} />
+      <div>
+        <div>
+          <h2>Tasks</h2>
+        </div>
+
+        <TasksCard tasks={project.tasks} />
+      </div>
     </div>
   )
 }

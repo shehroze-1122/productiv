@@ -4,19 +4,20 @@ import CreateNewButton from "@/components/common/CreateNewButton"
 import ProjectForm from "./ProjectForm"
 
 type CreateNewProject = {
+  mode: "edit" | "add"
   initialData: Omit<Project, "due"> & {
     id: string
     due?: string
   }
 }
 
-const CreateNewProject: FC<CreateNewProject> = ({ initialData }) => {
+const CreateNewProject: FC<CreateNewProject> = ({ initialData, mode }) => {
   return (
-    <CreateNewButton mode="edit">
+    <CreateNewButton mode={mode}>
       {(closeModal) => (
         <ProjectForm
           onClose={closeModal}
-          mode="edit"
+          mode={mode}
           initialData={initialData}
         />
       )}
