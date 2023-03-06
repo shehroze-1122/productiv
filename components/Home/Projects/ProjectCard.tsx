@@ -14,8 +14,6 @@ const ProjectCard: FC<{ project: ProjectWithTasks }> = ({ project }) => {
     (t) => t.status === "COMPLETED"
   ).length
 
-  console.log(project.due)
-
   const progress =
     project.tasks.length !== 0
       ? Math.ceil((completedCount / project.tasks.length) * 100)
