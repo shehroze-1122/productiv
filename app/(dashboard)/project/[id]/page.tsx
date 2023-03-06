@@ -3,7 +3,8 @@ import Card from "@/components/common/Card"
 import TasksCard from "@/components/Home/Projects/Tasks/TasksCard"
 import { getUserFromCookie } from "@/lib/cookies"
 import { db } from "@/lib/db"
-import CreateNewProject from "@/components/Home/Projects/CreateNewProject"
+import CreateNewButton from "@/components/common/CreateNewButton"
+import ProjectForm from "@/components/Home/Projects/ProjectForm"
 
 const getData = async (id: string) => {
   const user = await getUserFromCookie()
@@ -29,15 +30,17 @@ const ProjectDetails = async ({ params }: { params: { id: string } }) => {
       <Card className="p-4 mb-2">
         <div className="flex justify-between">
           <h1 className="text-2xl text-gray-700">{name}</h1>
-          <CreateNewProject
-            mode="add"
-            initialData={{
-              name,
-              id,
-              ...(description && { description }),
-              ...(due && { due: due.toISOString() })
-            }}
-          />
+          <CreateNewButton mode="edit">
+            <ProjectForm
+              mode="edit"
+              initialData={{
+                name,
+                id,
+                ...(description && { description }),
+                ...(due && { due: due.toISOString() })
+              }}
+            />
+          </CreateNewButton>
         </div>
         <h2 className="text-xs text-gray-400 mt-1">
           Last Updated on{" "}
