@@ -25,7 +25,6 @@ type ProjectFormProps = {
 
 function ProjectForm(props: AddProjectForm): JSX.Element
 function ProjectForm(props: EditProjectForm): JSX.Element
-function ProjectForm(props: ProjectFormProps): JSX.Element
 function ProjectForm({
   mode = "add",
   initialData = {
