@@ -1,5 +1,5 @@
 "use client"
-import React, { FC, ReactElement, useState } from "react"
+import React, { FC, ReactNode, useState } from "react"
 import Modal from "react-modal"
 import Button from "./Button"
 import { X, Plus, Edit2 } from "react-feather"
@@ -8,7 +8,7 @@ Modal.setAppElement("#modal")
 
 type CreateNewButton = {
   mode: "edit" | "add"
-  children: (closeModal: () => void) => ReactElement
+  children: ReactNode
 }
 
 const IconMap = {
@@ -48,7 +48,7 @@ const CreateNewButton: FC<CreateNewButton> = ({ children, mode }) => {
         >
           <X className="stroke-gray-400 hover:stroke-violet-600 transition duration-200 ease-in-out" />
         </Button>
-        {children(closeModal)}
+        {children}
       </Modal>
     </div>
   )

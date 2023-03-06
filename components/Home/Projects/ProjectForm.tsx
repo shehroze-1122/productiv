@@ -4,21 +4,18 @@ import Input from "@/components/common/Input"
 import Button from "@/components/common/Button"
 import { createProject, updateProject } from "@/lib/api"
 
-type ProjectForm = {
-  onClose: () => void
-}
-
-type AddProjectForm = ProjectForm & {
+type AddProjectForm = {
   mode?: "add"
 }
-type EditProjectForm = ProjectForm & {
+type EditProjectForm = {
   mode: "edit"
   initialData: Omit<Project, "due"> & {
     id: string
     due?: string
   }
 }
-type ProjectFormProps = ProjectForm & {
+
+type ProjectFormProps = {
   mode?: "add" | "edit"
   initialData?: Omit<Project, "due"> & {
     id: string
@@ -30,7 +27,6 @@ function ProjectForm(props: AddProjectForm): JSX.Element
 function ProjectForm(props: EditProjectForm): JSX.Element
 function ProjectForm(props: ProjectFormProps): JSX.Element
 function ProjectForm({
-  onClose,
   mode = "add",
   initialData = {
     id: "",
@@ -63,14 +59,17 @@ function ProjectForm({
     ],
     []
   )
+  const initialState = useMemo(
+    () => ({
+      name: initialData.name || "",
+      description: initialData.description || "",
+      due: initialData.due ? new Date(initialData.due).toLocaleDateString() : ""
+    }),
+    [initialData]
+  )
 
-  const [state, setState] = useState({
-    name: initialData.name || "",
-    description: initialData.description || "",
-    due: initialData.due ? new Date(initialData.due).toLocaleDateString() : ""
-  })
+  const [state, setState] = useState<typeof initialState>(initialState)
 
-  console.log({ state })
   const [loading, setLoading] = useState(false)
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -94,7 +93,7 @@ function ProjectForm({
       } else {
         await updateProject(initialData.id, dataObj)
       }
-      onClose()
+      setState(initialState)
     } catch (error) {
       console.log(error)
     } finally {
