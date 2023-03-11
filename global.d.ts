@@ -11,3 +11,11 @@ type Project = {
   description?: string
   due?: Date
 }
+
+type Task = {
+  name: string
+  description: string
+  due?: Date
+  status: "NOT_STARTED" | "STARTED" | "COMPLETED"
+  projectId: string
+}
