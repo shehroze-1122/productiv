@@ -2,7 +2,7 @@ type Link = {
   id: number
   label: string
   route: `/${any}`
-  icon: "Settings" | "User" | "Grid" | "Calendar"
+  icon: "Settings" | "Layers" | "Grid" | "Calendar"
 }
 
 type SidebarLink = {

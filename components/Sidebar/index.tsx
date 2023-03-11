@@ -12,9 +12,9 @@ const links: Link[] = [
   },
   {
     id: 3,
-    label: "Profile",
-    icon: "User",
-    route: "/profile"
+    label: "Projects",
+    icon: "Layers",
+    route: "/projects"
   },
   {
     id: 4,

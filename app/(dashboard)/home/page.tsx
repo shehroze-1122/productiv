@@ -19,7 +19,7 @@ export default function Page() {
       <div className="flex-1 flex grow items-center flex-wrap mt-3">
         <Suspense fallback={<Loading />}>
           {/* @ts-expect-error Server Component */}
-          <Projects />
+          <Projects limit={3} />
         </Suspense>
       </div>
       <div className="mt-6 flex-2 grow w-full flex">

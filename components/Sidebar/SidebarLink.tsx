@@ -3,13 +3,13 @@ import React, { FC } from "react"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import clsx from "clsx"
-import { Settings, User, Grid, Calendar } from "react-feather"
+import { Settings, Grid, Calendar, Layers } from "react-feather"
 
 const icons = {
   Settings,
-  User,
   Grid,
-  Calendar
+  Calendar,
+  Layers
 }
 
 const SidebarLink: FC<SidebarLink> = ({ link }) => {
