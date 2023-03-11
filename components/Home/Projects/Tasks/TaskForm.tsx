@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation"
 
 type TaskForm = {
   projectId: string
+  onClose: () => void
 }
 type AddTaskForm = TaskForm & {
   mode?: "add"
@@ -34,6 +35,7 @@ function TaskForm(props: TaskFormProps): JSX.Element
 function TaskForm({
   mode = "add",
   projectId,
+  onClose,
   initialData = {
     id: "",
     name: "",
@@ -108,6 +110,7 @@ function TaskForm({
         await updateProject(initialData.id, dataObj)
       }
       startTransition(() => {
+        onClose()
         router.refresh()
         setState(initialState)
       })

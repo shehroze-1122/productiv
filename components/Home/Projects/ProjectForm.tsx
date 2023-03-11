@@ -11,10 +11,14 @@ import Button from "@/components/common/Button"
 import { createProject, updateProject } from "@/lib/api"
 import { useRouter } from "next/navigation"
 
-type AddProjectForm = {
+type ProjectForm = {
+  onClose: () => void
+}
+
+type AddProjectForm = ProjectForm & {
   mode?: "add"
 }
-type EditProjectForm = {
+type EditProjectForm = ProjectForm & {
   mode: "edit"
   initialData: Omit<Project, "due"> & {
     id: string
@@ -22,7 +26,7 @@ type EditProjectForm = {
   }
 }
 
-type ProjectFormProps = {
+type ProjectFormProps = ProjectForm & {
   mode?: "add" | "edit"
   initialData?: Omit<Project, "due"> & {
     id: string
@@ -34,6 +38,7 @@ function ProjectForm(props: AddProjectForm): JSX.Element
 function ProjectForm(props: EditProjectForm): JSX.Element
 function ProjectForm({
   mode = "add",
+  onClose,
   initialData = {
     id: "",
     name: ""
@@ -103,6 +108,7 @@ function ProjectForm({
         await updateProject(initialData.id, dataObj)
       }
       startTransition(() => {
+        onClose()
         router.refresh()
         setState(initialState)
       })
