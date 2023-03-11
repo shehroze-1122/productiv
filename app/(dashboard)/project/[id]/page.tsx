@@ -5,6 +5,7 @@ import { getUserFromCookie } from "@/lib/cookies"
 import { db } from "@/lib/db"
 import CreateNewButton from "@/components/common/CreateNewButton"
 import ProjectForm from "@/components/Home/Projects/ProjectForm"
+import TaskForm from "@/components/Home/Projects/Tasks/TaskForm"
 
 const getData = async (id: string) => {
   const user = await getUserFromCookie()
@@ -57,13 +58,13 @@ const ProjectDetails = async ({ params }: { params: { id: string } }) => {
         <p className="text-gray-500 mt-3">{description}</p>
       </Card>
 
-      <div>
-        <div>
-          <h2>Tasks</h2>
-        </div>
-
-        <TasksCard tasks={project.tasks} />
-      </div>
+      <Card className="p-4 mb-2 flex justify-between items-center">
+        <h2 className="text-2xl text-gray-700">Tasks</h2>
+        <CreateNewButton mode="add">
+          <TaskForm mode="add" projectId={project.id} />
+        </CreateNewButton>
+      </Card>
+      <TasksCard tasks={project.tasks} />
     </div>
   )
 }
