@@ -72,3 +72,18 @@ export const createTask = (dataObj: Task) => {
     body: dataObj
   }) as Promise<ApiResponse>
 }
+
+export const updateTask = (id: string, dataObj: Task) => {
+  return fetcher({
+    url: `/api/task/${id}`,
+    method: "PUT",
+    body: dataObj
+  }) as Promise<ApiResponse>
+}
+
+export const deleteTask = (id: string) => {
+  return fetcher({
+    url: `/api/task/${id}`,
+    method: "DELETE"
+  }) as Promise<ApiResponse>
+}

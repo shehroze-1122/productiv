@@ -6,6 +6,8 @@ import Projects from "@/components/Home/Projects"
 import Tasks from "@/components/Home/Projects/Tasks"
 import Loading from "@/components/common/Loading"
 import TasksLoading from "@/components/Home/Projects/Tasks/Skeleton"
+import Card from "@/components/common/Card"
+import Link from "next/link"
 
 export default function Page() {
   return (
@@ -16,11 +18,19 @@ export default function Page() {
           <Greetings />
         </Suspense>
       </div>
-      <div className="flex-1 flex grow items-center flex-wrap mt-3">
-        <Suspense fallback={<Loading />}>
-          {/* @ts-expect-error Server Component */}
-          <Projects limit={3} />
-        </Suspense>
+      <div className="flex-1">
+        <Card className="p-4 mt-3 mb-2 flex justify-between items-center">
+          <h2 className="text-2xl text-gray-700 font-bold">Projects</h2>
+          <Link href="/projects" className="text-violet-500 underline">
+            All Projects
+          </Link>
+        </Card>
+        <div className="flex grow items-center flex-wrap mt-3">
+          <Suspense fallback={<Loading />}>
+            {/* @ts-expect-error Server Component */}
+            <Projects limit={3} />
+          </Suspense>
+        </div>
       </div>
       <div className="mt-6 flex-2 grow w-full flex">
         <div className="w-full">

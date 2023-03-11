@@ -1,36 +1,31 @@
 import React, { FC } from "react"
-import Card from "@/components/common/Card"
-import { Task } from "@prisma/client"
+import EditButton from "./EditButton"
 
 type TasksCard = {
-  tasks: Task[]
+  task: Omit<Task, "due"> & { id: string; due?: string }
+  projectId: string
 }
 
-const TasksCard: FC<TasksCard> = ({ tasks }) => {
+const TasksCard: FC<TasksCard> = ({ task, projectId }) => {
   return (
-    <Card className="py-4 px-6">
-      {tasks && tasks.length ? (
-        tasks.map((task) => (
-          <div key={task.id}>
-            <div className="py-2 flex justify-between items-center">
-              <div>
-                <h6 className="text-gray-800">{task.name}</h6>
-                <p className="text-gray-400 text-sm">{task.description}</p>
-              </div>
-              {task.due && (
-                <div className="bg-violet-500 text-white text-sm rounded-full p-2">
-                  <span className="font-bold">Due: </span>
-                  {new Date(task.due).toLocaleDateString()}
-                </div>
-              )}
+    <div key={task.id}>
+      <div className="py-2 flex justify-between items-center">
+        <div>
+          <h6 className="text-gray-800">{task.name}</h6>
+          <p className="text-gray-400 text-sm">{task.description}</p>
+        </div>
+        <div className="flex">
+          {task.due && (
+            <div className="bg-violet-500 text-white text-sm rounded-full p-2">
+              <span className="font-bold">Due: </span>
+              {new Date(task.due).toLocaleDateString()}
             </div>
-            <hr className="w-full" />
-          </div>
-        ))
-      ) : (
-        <div>No tasks</div>
-      )}
-    </Card>
+          )}
+          <EditButton initialData={task} projectId={projectId} />
+        </div>
+      </div>
+      <hr className="w-full" />
+    </div>
   )
 }
 

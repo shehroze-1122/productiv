@@ -8,13 +8,13 @@ import React, {
 } from "react"
 import Input from "@/components/common/Input"
 import Button from "@/components/common/Button"
-import { createTask, updateProject } from "@/lib/api"
+import { createTask, updateTask } from "@/lib/api"
 import { TASK_STATUS } from "@prisma/client"
 import { useRouter } from "next/navigation"
 
 type TaskForm = {
-  projectId: string
   onClose: () => void
+  projectId: string
 }
 type AddTaskForm = TaskForm & {
   mode?: "add"
@@ -22,20 +22,19 @@ type AddTaskForm = TaskForm & {
 
 type EditTaskForm = TaskForm & {
   mode: "edit"
-  initialData: { id: string } & Omit<Task, "projectId">
+  initialData: { id: string; due?: string } & Omit<Task, "projectId" | "due">
 }
 type TaskFormProps = TaskForm & {
   mode?: "add" | "edit"
-  initialData?: { id: string } & Omit<Task, "projectId">
+  initialData?: { id: string; due?: string } & Omit<Task, "projectId" | "due">
 }
 
 function TaskForm(props: AddTaskForm): JSX.Element
 function TaskForm(props: EditTaskForm): JSX.Element
-function TaskForm(props: TaskFormProps): JSX.Element
 function TaskForm({
   mode = "add",
-  projectId,
   onClose,
+  projectId,
   initialData = {
     id: "",
     name: "",
@@ -107,7 +106,7 @@ function TaskForm({
       if (mode === "add") {
         await createTask(dataObj)
       } else {
-        await updateProject(initialData.id, dataObj)
+        await updateTask(initialData.id, dataObj)
       }
       startTransition(() => {
         onClose()

@@ -66,4 +66,5 @@ model Task {
   project Project @relation(fields: [projectId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 
   @@index([ownerId])
+  @@unique([ownerId, id])
 }

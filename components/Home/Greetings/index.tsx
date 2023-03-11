@@ -1,5 +1,4 @@
 import React from "react"
-import { cookies } from "next/headers"
 import { getUserFromCookie } from "@/lib/cookies"
 import Button from "@/components/common/Button"
 import Card from "@/components/common/Card"

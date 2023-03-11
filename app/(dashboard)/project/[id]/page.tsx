@@ -1,10 +1,10 @@
 import React from "react"
 import Card from "@/components/common/Card"
-import TasksCard from "@/components/Home/Projects/Tasks/TasksCard"
 import { getUserFromCookie } from "@/lib/cookies"
 import { db } from "@/lib/db"
 import CreateNewButton from "@/components/Home/Projects/Tasks/CreateNewButton"
 import EditButton from "@/components/Home/Projects/EditButton"
+import Tasks from "@/components/Home/Projects/Tasks"
 
 const getData = async (id: string) => {
   const user = await getUserFromCookie()
@@ -69,7 +69,8 @@ const ProjectDetails = async ({ params }: { params: { id: string } }) => {
         <h2 className="text-2xl text-gray-700">Tasks</h2>
         <CreateNewButton projectId={project.id} />
       </Card>
-      <TasksCard tasks={project.tasks} />
+      {/* @ts-expect-error Server Component */}
+      <Tasks projectId={project.id} initialTasks={project.tasks} />
     </div>
   )
 }
