@@ -64,3 +64,11 @@ export const updateProject = (id: string, dataObj: Project) => {
     body: dataObj
   }) as Promise<ApiResponse>
 }
+
+export const createTask = (dataObj: Task) => {
+  return fetcher({
+    url: "/api/task",
+    method: "POST",
+    body: dataObj
+  }) as Promise<ApiResponse>
+}
