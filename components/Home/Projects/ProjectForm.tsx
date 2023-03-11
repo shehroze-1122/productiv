@@ -1,8 +1,15 @@
 "use client"
-import React, { ChangeEvent, FormEvent, useMemo, useState } from "react"
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useMemo,
+  useState,
+  useTransition
+} from "react"
 import Input from "@/components/common/Input"
 import Button from "@/components/common/Button"
 import { createProject, updateProject } from "@/lib/api"
+import { useRouter } from "next/navigation"
 
 type AddProjectForm = {
   mode?: "add"
@@ -69,6 +76,9 @@ function ProjectForm({
 
   const [state, setState] = useState<typeof initialState>(initialState)
 
+  const [isPending, startTransition] = useTransition()
+  const router = useRouter()
+
   const [loading, setLoading] = useState(false)
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -92,7 +102,10 @@ function ProjectForm({
       } else {
         await updateProject(initialData.id, dataObj)
       }
-      setState(initialState)
+      startTransition(() => {
+        router.refresh()
+        setState(initialState)
+      })
     } catch (error) {
       console.log(error)
     } finally {
@@ -126,8 +139,8 @@ function ProjectForm({
         })}
       </div>
       <div className="flex justify-end">
-        <Button type="submit" disabled={loading}>
-          {loading ? "Loading..." : "Submit"}
+        <Button type="submit" disabled={loading || isPending}>
+          {loading || isPending ? "Loading..." : "Submit"}
         </Button>
       </div>
     </form>
