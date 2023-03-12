@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React, { FC, MouseEvent } from "react"
 import Button from "./Button"
 import Dialog from "./Dialog"
 
@@ -7,7 +7,7 @@ type ConfirmationDialog = {
   loading: boolean
   onClose: () => void
   description: string
-  handleConfirm: () => void
+  handleConfirm: (e: MouseEvent<HTMLButtonElement>) => void
 }
 
 const ConfirmationDialog: FC<ConfirmationDialog> = ({

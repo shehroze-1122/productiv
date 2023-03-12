@@ -65,6 +65,13 @@ export const updateProject = (id: string, dataObj: Project) => {
   }) as Promise<ApiResponse>
 }
 
+export const deleteProject = (id: string) => {
+  return fetcher({
+    url: `/api/project/${id}`,
+    method: "DELETE"
+  }) as Promise<ApiResponse>
+}
+
 export const createTask = (dataObj: Task) => {
   return fetcher({
     url: "/api/task",

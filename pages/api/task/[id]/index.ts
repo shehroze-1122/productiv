@@ -28,7 +28,7 @@ export default async function UpdateOrDeleteTask(
       })
       res.status(200).json({ message: "success" })
     } catch (error) {
-      res.status(500).json({ error: "Failed to update the project" })
+      res.status(500).json({ error: "Failed to update the task" })
     }
   }
 
@@ -50,7 +50,7 @@ export default async function UpdateOrDeleteTask(
       })
       res.status(200).json({ message: "success" })
     } catch (error) {
-      res.status(500).json({ error: "Failed to delete the project" })
+      res.status(500).json({ error: "Failed to delete the task" })
     }
   }
 }

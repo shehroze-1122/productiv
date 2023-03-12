@@ -31,4 +31,26 @@ export default async function UpdateOrDeleteProject(
       res.status(500).json({ error: "Failed to update the project" })
     }
   }
+
+  if (req.method === "DELETE") {
+    const response = await validateRequest(req)
+
+    if (isError(response)) {
+      return res.status(401).json(response)
+    }
+
+    try {
+      await db.project.delete({
+        where: {
+          ownerId_id: {
+            id: req.query.id as string,
+            ownerId: response.id
+          }
+        }
+      })
+      res.status(200).json({ message: "success" })
+    } catch (error) {
+      res.status(500).json({ error: "Failed to delete the project" })
+    }
+  }
 }

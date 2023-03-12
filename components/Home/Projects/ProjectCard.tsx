@@ -2,6 +2,7 @@ import React, { FC } from "react"
 import Card from "@/components/common/Card"
 import { Prisma } from "@prisma/client"
 import { formatDate } from "@/lib/date"
+import DeleteButton from "./DeleteButton"
 
 const projectsWithTasks = Prisma.validator<Prisma.ProjectArgs>()({
   include: { tasks: true }
@@ -20,7 +21,8 @@ const ProjectCard: FC<{ project: ProjectWithTasks }> = ({ project }) => {
       : 0
 
   return (
-    <Card className="px-6 py-8 hover:scale-105 transition-all ease-in-out duration-200">
+    <Card className="px-6 py-8 hover:scale-105 transition-all ease-in-out duration-200 relative">
+      <DeleteButton id={project.id} className="absolute top-2 right-2" />
       <div>
         <span className="text-sm text-gray-300">
           {formatDate(project.createdAt)}
@@ -47,7 +49,6 @@ const ProjectCard: FC<{ project: ProjectWithTasks }> = ({ project }) => {
       <div className="text-right">
         <span className="text-sm text-gray-600 font-semibold">{progress}%</span>
       </div>
-      {/* </div> */}
     </Card>
   )
 }
