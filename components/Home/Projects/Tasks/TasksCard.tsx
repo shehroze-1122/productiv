@@ -1,4 +1,5 @@
 import React, { FC } from "react"
+import DeleteButton from "./DeleteButton"
 import EditButton from "./EditButton"
 
 type TasksCard = {
@@ -16,12 +17,13 @@ const TasksCard: FC<TasksCard> = ({ task, projectId }) => {
         </div>
         <div className="flex">
           {task.due && (
-            <div className="bg-violet-500 text-white text-sm rounded-full p-2">
+            <div className="bg-violet-500 text-white text-sm rounded-full p-2 mr-2">
               <span className="font-bold">Due: </span>
               {new Date(task.due).toLocaleDateString()}
             </div>
           )}
           <EditButton initialData={task} projectId={projectId} />
+          <DeleteButton id={task.id} />
         </div>
       </div>
       <hr className="w-full" />
