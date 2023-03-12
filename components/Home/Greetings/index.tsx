@@ -2,10 +2,9 @@ import React from "react"
 import { getUserFromCookie } from "@/lib/cookies"
 import Button from "@/components/common/Button"
 import Card from "@/components/common/Card"
-import { delay } from "@/lib/async"
+import Link from "next/link"
 
 const getData = async () => {
-  await delay(5000)
   const user = await getUserFromCookie()
   return user
 }
@@ -26,7 +25,12 @@ const Greetings = async () => {
         </h4>
       </div>
       <div>
-        <Button size="large">Today&apos;s Schedule</Button>
+        <Link
+          className="bg-violet-500 text-white border-transparent hover:bg-violet-600 text-lg px-6 py-3 rounded-3xl font-bold hover:scale-110 active:scale-100 transition duration-200 ease-in-out"
+          href="/calendar"
+        >
+          Today&apos;s Schedule
+        </Link>
       </div>
     </Card>
   )

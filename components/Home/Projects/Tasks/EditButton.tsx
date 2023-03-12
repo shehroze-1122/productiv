@@ -27,7 +27,7 @@ const EditButton: FC<EditButton> = ({ initialData, projectId }) => {
         onClick={openModal}
         className="flex justify-center items-center hover:bg-transparent px-1"
       >
-        <Edit2 className="inline mr-2" />
+        <Edit2 className="inline" />
       </Button>
 
       <Dialog isOpen={isOpen} onClose={closeModal}>

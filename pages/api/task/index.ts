@@ -7,25 +7,50 @@ export default async function createProject(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method !== "POST")
-    return res.status(405).json({ error: "Incorrect method" })
-  const response = await validateRequest(req)
+  if (req.method === "POST") {
+    const response = await validateRequest(req)
 
-  if (isError(response)) {
-    return res.status(401).json(response)
+    if (isError(response)) {
+      return res.status(401).json(response)
+    }
+
+    const body = req.body as Task
+
+    if (!body.name || !body.description)
+      return res.status(404).json({ error: "Not enough data" })
+    try {
+      await db.task.create({
+        data: { ...body, ownerId: response.id }
+      })
+
+      return res.status(200).json({ message: "ok" })
+    } catch (error) {
+      return res.status(500).json({ error: "Something went wrong" })
+    }
   }
 
-  const body = req.body as Task
+  if (req.method === "GET") {
+    const response = await validateRequest(req)
 
-  if (!body.name || !body.description)
-    return res.status(404).json({ error: "Not enough data" })
-  try {
-    await db.task.create({
-      data: { ...body, ownerId: response.id }
-    })
+    if (isError(response)) {
+      return res.status(401).json(response)
+    }
 
-    return res.status(200).json({ message: "ok" })
-  } catch (error) {
-    return res.status(500).json({ error: "Something went wrong" })
+    const due = req.query.due as string
+
+    if (!due) return res.status(404).json({ error: "Not enough data" })
+
+    try {
+      const tasks = await db.task.findMany({
+        where: {
+          due,
+          ownerId: response.id
+        }
+      })
+
+      return res.status(200).json({ data: tasks })
+    } catch (error) {
+      return res.status(500).json({ error: "Something went wrong" })
+    }
   }
 }

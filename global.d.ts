@@ -15,7 +15,7 @@ type Project = {
 type Task = {
   name: string
   description: string
-  due?: Date
+  due?: string
   status: "NOT_STARTED" | "STARTED" | "COMPLETED"
   projectId: string
 }

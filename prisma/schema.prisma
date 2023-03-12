@@ -56,7 +56,7 @@ model Task {
   name String
   description String
   status TASK_STATUS @default(NOT_STARTED)
-  due DateTime?
+  due String?
   deleted Boolean @default(false)
 
   ownerId String
@@ -67,4 +67,5 @@ model Task {
 
   @@index([ownerId])
   @@unique([ownerId, id])
+  @@index([ownerId, due])
 }

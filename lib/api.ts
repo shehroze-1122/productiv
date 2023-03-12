@@ -1,3 +1,5 @@
+import { Task } from "@prisma/client"
+
 type Fetcher = {
   url: string
   method: "GET" | "POST" | "PUT" | "DELETE"
@@ -72,7 +74,12 @@ export const deleteProject = (id: string) => {
   }) as Promise<ApiResponse>
 }
 
-export const createTask = (dataObj: Task) => {
+type TaskDataObj = Omit<
+  Task,
+  "id" | "createdAt" | "updatedAt" | "deleted" | "ownerId"
+>
+
+export const createTask = (dataObj: TaskDataObj) => {
   return fetcher({
     url: "/api/task",
     method: "POST",
@@ -80,7 +87,7 @@ export const createTask = (dataObj: Task) => {
   }) as Promise<ApiResponse>
 }
 
-export const updateTask = (id: string, dataObj: Task) => {
+export const updateTask = (id: string, dataObj: TaskDataObj) => {
   return fetcher({
     url: `/api/task/${id}`,
     method: "PUT",
@@ -93,4 +100,11 @@ export const deleteTask = (id: string) => {
     url: `/api/task/${id}`,
     method: "DELETE"
   }) as Promise<ApiResponse>
+}
+
+export const getTasksByDueDate = (date: string) => {
+  return fetcher({
+    url: `/api/task?due=${date}`,
+    method: "GET"
+  }) as Promise<{ data: Task[]; error?: string }>
 }

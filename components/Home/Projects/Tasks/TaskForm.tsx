@@ -73,14 +73,11 @@ function TaskForm({
     () => ({
       name: initialData.name || "",
       description: initialData.description || "",
-      due: initialData.due
-        ? new Date(initialData.due).toLocaleDateString()
-        : "",
+      due: initialData.due || "",
       status: initialData.status || ""
     }),
     [initialData]
   )
-  console.log({ initialData })
 
   const [state, setState] = useState<typeof initialState>(initialState)
   const [isPending, startTransition] = useTransition()
@@ -94,15 +91,12 @@ function TaskForm({
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log("HERE")
-    const { due, ...otherFields } = state
 
     const dataObj = {
-      ...otherFields,
-      projectId,
-      ...(due && { due: new Date(due) })
+      ...state,
+      projectId
     }
-    console.log({ dataObj })
+
     try {
       setLoading(true)
       if (mode === "add") {

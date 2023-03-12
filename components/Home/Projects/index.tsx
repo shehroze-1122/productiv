@@ -1,12 +1,10 @@
-import { delay } from "@/lib/async"
 import { getUserFromCookie } from "@/lib/cookies"
 import { db } from "@/lib/db"
 import Link from "next/link"
-import React, { FC } from "react"
+import React from "react"
 import ProjectCard from "./ProjectCard"
 
 const getData = async (take?: number) => {
-  await delay(1000)
   const user = await getUserFromCookie()
 
   const projects = await db.project.findMany({
@@ -17,7 +15,7 @@ const getData = async (take?: number) => {
       tasks: true
     },
     orderBy: {
-      updatedAt: "desc"
+      due: "asc"
     },
     ...(take && { take })
   })

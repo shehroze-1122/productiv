@@ -1,5 +1,4 @@
 import Card from "@/components/common/Card"
-import { delay } from "@/lib/async"
 import { getUserFromCookie } from "@/lib/cookies"
 import { db } from "@/lib/db"
 import { Task, TASK_STATUS } from "@prisma/client"
@@ -7,7 +6,6 @@ import React from "react"
 import TasksCard from "./TasksCard"
 
 const getData = async (projectId: string) => {
-  await delay(6000)
   const user = await getUserFromCookie()
 
   const tasks = await db.task.findMany({
@@ -47,9 +45,8 @@ const Tasks = async ({
               name: task.name,
               description: task.description,
               status: task.status,
-              due: task.due ? task.due.toISOString() : undefined
+              due: task.due || undefined
             }}
-            projectId={projectId}
           />
         ))
       ) : (

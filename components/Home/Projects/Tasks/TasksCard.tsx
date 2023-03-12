@@ -6,25 +6,24 @@ import clsx from "clsx"
 
 type TasksCard = {
   task: Omit<Task, "due"> & { id: string; due?: string }
-  projectId: string
 }
 
-const TasksCard: FC<TasksCard> = ({ task, projectId }) => {
-  const statusMap = {
-    [TASK_STATUS.COMPLETED]: {
-      title: "Done",
-      color: "green"
-    },
-    [TASK_STATUS.NOT_STARTED]: {
-      title: "Pending",
-      color: "red"
-    },
-    [TASK_STATUS.STARTED]: {
-      title: "In Progress",
-      color: "orange"
-    }
+const statusMap = {
+  [TASK_STATUS.COMPLETED]: {
+    title: "Done",
+    styles: "border-green-600 text-green-600 bg-green-300"
+  },
+  [TASK_STATUS.NOT_STARTED]: {
+    title: "Pending",
+    styles: "border-red-600 text-red-600 bg-red-300"
+  },
+  [TASK_STATUS.STARTED]: {
+    title: "In Progress",
+    styles: "border-orange-600 text-orange-600 bg-orange-300"
   }
+}
 
+const TasksCard: FC<TasksCard> = ({ task }) => {
   return (
     <div key={task.id}>
       <div className="py-2 flex justify-between items-center">
@@ -36,9 +35,7 @@ const TasksCard: FC<TasksCard> = ({ task, projectId }) => {
           <span
             className={clsx(
               "border-2 border-solid rounded-full py-1 px-2 mr-2",
-              `border-${statusMap[task.status].color}-600 text-${
-                statusMap[task.status].color
-              }-600 bg-${statusMap[task.status].color}-300 `
+              statusMap[task.status].styles
             )}
           >
             {statusMap[task.status].title}
@@ -49,7 +46,7 @@ const TasksCard: FC<TasksCard> = ({ task, projectId }) => {
               {new Date(task.due).toLocaleDateString()}
             </div>
           )}
-          <EditButton initialData={task} projectId={projectId} />
+          <EditButton initialData={task} projectId={task.projectId} />
           <DeleteButton id={task.id} />
         </div>
       </div>
