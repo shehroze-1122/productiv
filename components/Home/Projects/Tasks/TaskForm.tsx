@@ -80,6 +80,7 @@ function TaskForm({
     }),
     [initialData]
   )
+  console.log({ initialData })
 
   const [state, setState] = useState<typeof initialState>(initialState)
   const [isPending, startTransition] = useTransition()
@@ -93,7 +94,7 @@ function TaskForm({
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
+    console.log("HERE")
     const { due, ...otherFields } = state
 
     const dataObj = {
@@ -101,6 +102,7 @@ function TaskForm({
       projectId,
       ...(due && { due: new Date(due) })
     }
+    console.log({ dataObj })
     try {
       setLoading(true)
       if (mode === "add") {
@@ -151,7 +153,13 @@ function TaskForm({
           <select
             name="status"
             id="status"
-            onChange={(e) => console.log(e.target.value)}
+            onChange={(e) => {
+              setState((prevState) => ({
+                ...prevState,
+                status: e.target.value as TASK_STATUS
+              }))
+            }}
+            value={state.status}
             className="border-solid border-gray border-2 px-6 py-2 text-lg rounded-3xl w-full"
           >
             <option value={TASK_STATUS.NOT_STARTED}>Pending</option>
