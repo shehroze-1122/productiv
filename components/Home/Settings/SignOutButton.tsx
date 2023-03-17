@@ -2,7 +2,7 @@
 import React, { useState } from "react"
 import { LogOut } from "react-feather"
 import { logout } from "@/lib/api"
-import Button from "../common/Button"
+import Button from "../../common/Button"
 import { useRouter } from "next/navigation"
 
 const SignOutButton = () => {

@@ -1,5 +1,5 @@
 import Card from "@/components/common/Card"
-import SignOutButton from "@/components/Settings/SignOutButton"
+import SignOutButton from "@/components/Home/Settings/SignOutButton"
 import React, { FC, PropsWithChildren } from "react"
 
 const SettingsLayout: FC<PropsWithChildren> = ({ children }) => {

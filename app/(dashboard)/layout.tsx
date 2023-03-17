@@ -2,7 +2,7 @@ import React, { FC, PropsWithChildren } from "react"
 import GlassPane from "@/components/common/GlassPane"
 import "@/styles/global.css"
 import { Inter } from "@next/font/google"
-import Sidebar from "@/components/Sidebar/index"
+import Sidebar from "@/components/Home/Sidebar/index"
 import ReactToastifyContainer from "@/components/common/ReactToastifyContainer"
 
 const inter = Inter({

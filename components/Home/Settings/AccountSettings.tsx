@@ -2,8 +2,8 @@
 import React, { ChangeEvent, FC, FormEvent, useMemo, useState } from "react"
 import { User } from "@prisma/client"
 import { Save } from "react-feather"
-import Input from "../common/Input"
-import Button from "../common/Button"
+import Input from "../../common/Input"
+import Button from "../../common/Button"
 import Link from "next/link"
 import { updateAccount } from "@/lib/api"
 

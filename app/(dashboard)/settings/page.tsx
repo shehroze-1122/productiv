@@ -1,5 +1,5 @@
 import React from "react"
-import AccountSettings from "@/components/Settings/AccountSettings"
+import AccountSettings from "@/components/Home/Settings/AccountSettings"
 import { getUserFromCookie } from "@/lib/cookies"
 
 const Settings = async () => {
