@@ -16,7 +16,7 @@ const SidebarLink: FC<SidebarLink> = ({ link }) => {
   const pathname = usePathname()
   let isActive = false
 
-  if (pathname === link.route) {
+  if (pathname?.substring(1).split("/")[0] === link.route.substring(1)) {
     isActive = true
   }
 
