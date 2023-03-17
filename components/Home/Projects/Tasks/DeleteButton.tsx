@@ -41,7 +41,7 @@ const DeleteButton: FC<DeleteButton> = ({ id }) => {
         intent="text"
         size="medium"
         onClick={openModal}
-        className="flex justify-center items-center hover:bg-transparent px-0"
+        className="flex justify-center items-center hover:bg-transparent !px-0"
       >
         <Trash2 className="inline" />
       </Button>

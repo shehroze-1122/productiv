@@ -19,10 +19,9 @@ export default function Page() {
         </Suspense>
       </div>
       <div className="flex-1">
-        <Card className="p-4 mt-3 mb-2 flex justify-between items-center">
-          <h2 className="text-2xl text-gray-700 font-bold">Projects</h2>
-          <Link href="/projects" className="text-violet-500 underline">
-            All Projects
+        <Card className="p-4 mt-3 mb-2 w-max">
+          <Link href="/projects">
+            <h2 className="text-2xl text-gray-700 font-bold">Projects</h2>
           </Link>
         </Card>
         <div className="flex grow items-center flex-wrap mt-3">
@@ -32,7 +31,10 @@ export default function Page() {
           </Suspense>
         </div>
       </div>
-      <div className="mt-6 flex-2 grow w-full flex">
+      <div className="mt-6 flex-2 grow">
+        <Card className="p-4 mt-3 mb-2 w-max">
+          <h2 className="text-2xl text-gray-700 font-bold">Recent Todos</h2>
+        </Card>
         <div className="w-full">
           <Suspense fallback={<TasksLoading />}>
             {/* @ts-expect-error Server Component */}

@@ -50,7 +50,7 @@ const Tasks = async ({
           />
         ))
       ) : (
-        <div>No tasks</div>
+        <div>No recent tasks</div>
       )}
     </Card>
   )
