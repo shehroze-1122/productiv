@@ -1,6 +1,6 @@
-export default function Head() {
-  const a = ""
+import React from "react"
 
+export default function Head() {
   return (
     <>
       <title>Create Next App</title>
