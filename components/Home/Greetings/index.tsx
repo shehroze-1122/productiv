@@ -25,11 +25,8 @@ const Greetings = async () => {
         </h4>
       </div>
       <div>
-        <Link
-          className="bg-violet-500 text-white border-transparent hover:bg-violet-600 text-lg px-6 py-3 rounded-3xl font-bold hover:scale-110 active:scale-100 transition duration-200 ease-in-out"
-          href="/calendar"
-        >
-          Today&apos;s Schedule
+        <Link href="/calendar">
+          <Button>Today&apos;s Schedule</Button>
         </Link>
       </div>
     </Card>
