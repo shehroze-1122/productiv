@@ -3,6 +3,7 @@ import GlassPane from "@/components/common/GlassPane"
 import "@/styles/global.css"
 import { Inter } from "@next/font/google"
 import Sidebar from "@/components/Sidebar/index"
+import ReactToastifyContainer from "@/components/common/ReactToastifyContainer"
 
 const inter = Inter({
   variable: "--font-inter",
@@ -19,6 +20,7 @@ const AuthRootLayout: FC<PropsWithChildren> = ({ children }) => {
           {children}
         </GlassPane>
         <div id="modal"></div>
+        <ReactToastifyContainer />
       </body>
     </html>
   )
