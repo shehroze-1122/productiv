@@ -25,6 +25,7 @@ export default async function signin(
   if (!user)
     return res.status(404).send({ error: "Incorrect Email or Password" })
 
+  console.log({ password, user: user.password })
   const passwordMatches = await comparePasswords(password, user.password)
 
   if (!passwordMatches)

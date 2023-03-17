@@ -108,3 +108,32 @@ export const getTasksByDueDate = (date: string) => {
     method: "GET"
   }) as Promise<{ data: Task[]; error?: string }>
 }
+
+export const logout = () => {
+  return fetcher({
+    url: "/api/logout",
+    method: "GET"
+  }) as Promise<{ message: string }>
+}
+
+export const updateAccount = (dataObj: {
+  firstName: string
+  lastName: string | null
+}) => {
+  return fetcher({
+    url: "/api/update-account",
+    method: "PUT",
+    body: dataObj
+  })
+}
+
+export const updatePassword = (
+  currentPassword: string,
+  newPassword: string
+) => {
+  return fetcher({
+    url: "/api/update-password",
+    method: "PUT",
+    body: { newPassword, currentPassword }
+  })
+}
