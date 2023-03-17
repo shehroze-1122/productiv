@@ -31,7 +31,7 @@ const Projects = async ({ limit }: { limit?: number }) => {
   }
   return projects.map((project) => (
     <div className="w-1/3 pr-3 pb-3 h-full" key={project.id}>
-      <Link href={`/project/${project.id}`}>
+      <Link href={`/projects/${project.id}`}>
         <ProjectCard project={project} />
       </Link>
     </div>
