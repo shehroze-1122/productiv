@@ -29,19 +29,19 @@ const TasksCard: FC<TasksCard> = ({ task }) => {
       <div className="py-2 flex justify-between items-center">
         <div>
           <h6 className="text-gray-800">{task.name}</h6>
-          <p className="text-gray-400 text-sm">{task.description}</p>
+          <p className="text-gray-400 text-sm mr-2">{task.description}</p>
         </div>
-        <div className="flex items-center">
-          <span
+        <div className="flex items-center justify-end">
+          <div
             className={clsx(
-              "border-2 border-solid rounded-full py-1 px-2 mr-2",
+              "border-2 border-solid rounded-full py-1 px-2 mr-2 whitespace-nowrap",
               statusMap[task.status].styles
             )}
           >
             {statusMap[task.status].title}
-          </span>
+          </div>
           {task.due && (
-            <div className="bg-violet-500 text-white text-sm rounded-full p-2 mr-2">
+            <div className="bg-violet-500 text-white text-sm rounded-full p-2 mr-2 whitespace-nowrap">
               <span className="font-bold">Due: </span>
               {new Date(task.due).toLocaleDateString()}
             </div>
