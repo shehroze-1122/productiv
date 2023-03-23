@@ -34,8 +34,7 @@ export default async function UpdateAccount(
       if (!isMatch)
         return res.status(400).json({ error: "incorrect current password" })
     } catch (error) {
-      console.log("Hello", error)
-      return res.status(500).json({ message: "Failed to updated the password" })
+      return res.status(500).json({ error: "Failed to updated the password" })
     }
 
     const newHashedPassword = await hashPassword(body.newPassword)
@@ -50,7 +49,6 @@ export default async function UpdateAccount(
       })
       res.status(200).json({ message: "success" })
     } catch (error) {
-      console.log("Hi", error)
       res.status(500).json({ error: "Failed to update the password" })
     }
   }
