@@ -124,7 +124,7 @@ export const updateAccount = (dataObj: {
     url: "/api/update-account",
     method: "PUT",
     body: dataObj
-  })
+  }) as Promise<ApiResponse>
 }
 
 export const updatePassword = (
@@ -135,5 +135,5 @@ export const updatePassword = (
     url: "/api/update-password",
     method: "PUT",
     body: { newPassword, currentPassword }
-  })
+  }) as Promise<ApiResponse>
 }
