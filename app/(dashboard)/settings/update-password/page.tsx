@@ -4,7 +4,7 @@ import { Save } from "react-feather"
 import Button from "@/components/common/Button"
 import Input from "@/components/common/Input"
 import { updatePassword } from "@/lib/api"
-import { useRouter } from "next/navigation"
+import { toast } from "react-toastify"
 
 const UpdatePassword = () => {
   const initialState = {
@@ -16,7 +16,6 @@ const UpdatePassword = () => {
   const entities = useRef(initialState)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
-  const router = useRouter()
 
   const fields = useMemo(
     () => [
@@ -59,13 +58,18 @@ const UpdatePassword = () => {
 
     try {
       setLoading(true)
-      await updatePassword(
+      const { error } = await updatePassword(
         entities.current.currentPassword,
         entities.current.newPassword
       )
+      if (error) {
+        setError(error)
+      } else {
+        toast.success("Successfully update the password!")
+      }
       entities.current = initialState
     } catch (error) {
-      console.log(error)
+      toast.error("Something went wrong!")
     } finally {
       setLoading(false)
     }
