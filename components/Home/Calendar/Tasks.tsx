@@ -16,7 +16,7 @@ const Tasks: FC<Tasks> = ({ date }) => {
   useEffect(() => {
     setLoading(true)
     getTasksByDueDate(date)
-      .then(({ data, error }) => {
+      .then(({ data }) => {
         setTasks(data)
       })
       .catch((error) => {
@@ -30,7 +30,6 @@ const Tasks: FC<Tasks> = ({ date }) => {
   if (loading) {
     return <TasksLoading />
   }
-
   return (
     <Card className="py-4 px-6 w-full">
       {tasks && tasks.length ? (
@@ -43,7 +42,7 @@ const Tasks: FC<Tasks> = ({ date }) => {
               name: task.name,
               description: task.description,
               status: task.status,
-              due: task.due || undefined
+              due: task.due ? String(task.due) : undefined
             }}
           />
         ))
