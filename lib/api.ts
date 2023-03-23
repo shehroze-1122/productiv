@@ -112,7 +112,10 @@ export const getTasksByDueDate = (date: string) => {
 export const logout = () => {
   return fetcher({
     url: "/api/logout",
-    method: "GET"
+    method: "POST",
+    body: {
+      key: "productiv_logout"
+    }
   }) as Promise<{ message: string }>
 }
 
