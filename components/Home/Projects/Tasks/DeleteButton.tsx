@@ -4,7 +4,7 @@ import { Trash2 } from "react-feather"
 import Button from "@/components/common/Button"
 import ConfirmationDialog from "@/components/common/ConfirmationDialog"
 import { deleteTask } from "@/lib/api"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { toast } from "react-toastify"
 
 type DeleteButton = {
@@ -13,6 +13,9 @@ type DeleteButton = {
 
 const DeleteButton: FC<DeleteButton> = ({ id }) => {
   const router = useRouter()
+  const pathname = usePathname()
+
+  if (pathname === "/calendar") return null
 
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(false)

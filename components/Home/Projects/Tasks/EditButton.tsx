@@ -4,6 +4,7 @@ import { Edit2 } from "react-feather"
 import Button from "@/components/common/Button"
 import Dialog from "@/components/common/Dialog"
 import TaskForm from "./TaskForm"
+import { usePathname } from "next/navigation"
 
 type EditButton = {
   projectId: string
@@ -15,6 +16,9 @@ type EditButton = {
 
 const EditButton: FC<EditButton> = ({ initialData, projectId }) => {
   const [isOpen, setIsOpen] = useState(false)
+  const pathname = usePathname()
+
+  if (pathname === "/calendar") return null
 
   const closeModal = () => setIsOpen(false)
   const openModal = () => setIsOpen(true)

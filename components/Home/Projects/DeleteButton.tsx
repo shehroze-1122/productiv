@@ -39,7 +39,7 @@ const DeleteButton: FC<DeleteButton> = ({ id, className }) => {
         setLoading(true)
         const { error } = await deleteProject(id)
         if (error) {
-          toast.error(`Failed to delete the project. Error: ${error}`)
+          toast.error(`Error: ${error}`)
         } else {
           toast.success("Successfully deleted the project")
           startTransition(() => {
