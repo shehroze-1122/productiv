@@ -45,7 +45,7 @@ const Tasks = async ({
               name: task.name,
               description: task.description,
               status: task.status,
-              due: task.due || undefined
+              due: task.due ? task.due.toLocaleDateString() : undefined
             }}
           />
         ))

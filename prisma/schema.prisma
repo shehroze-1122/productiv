@@ -56,7 +56,7 @@ model Task {
   name String
   description String
   status TASK_STATUS @default(NOT_STARTED)
-  due String?
+  due DateTime?
   deleted Boolean @default(false)
 
   ownerId String

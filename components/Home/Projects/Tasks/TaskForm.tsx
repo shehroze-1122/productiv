@@ -96,6 +96,7 @@ function TaskForm({
 
     const dataObj = {
       ...state,
+      due: state.due ? new Date(state.due) : null,
       projectId
     }
 
