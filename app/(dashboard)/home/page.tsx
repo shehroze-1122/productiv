@@ -19,12 +19,12 @@ export default function Page() {
         </Suspense>
       </div>
       <div className="flex-1">
-        <Card className="p-4 mt-3 mb-2 w-max">
+        <Card className="p-4 mt-3 mb-3 w-max">
           <Link href="/projects">
             <h2 className="text-2xl text-gray-700 font-bold">Projects</h2>
           </Link>
         </Card>
-        <div className="flex grow items-center flex-wrap mt-3">
+        <div className="flex grow items-center flex-wrap">
           <Suspense fallback={<Loading />}>
             {/* @ts-expect-error Server Component */}
             <Projects limit={3} />
@@ -32,7 +32,7 @@ export default function Page() {
         </div>
       </div>
       <div className="mt-6 flex-2 grow">
-        <Card className="p-4 mt-3 mb-2 w-max">
+        <Card className="p-4 mt-3 mb-3 w-max">
           <h2 className="text-2xl text-gray-700 font-bold">Recent Todos</h2>
         </Card>
         <div className="w-full">
