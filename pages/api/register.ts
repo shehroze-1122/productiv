@@ -61,7 +61,7 @@ async function seedProjectWithTasks(user: User) {
         name: "Sign up on Productiv🚀",
         ownerId: user.id,
         projectId: project.id,
-        due: new Date(),
+        due: new Date(new Date().toISOString().split("T")[0]).toISOString(),
         description: "Register on Productiv today!",
         status: TASK_STATUS.COMPLETED
       },
@@ -69,7 +69,11 @@ async function seedProjectWithTasks(user: User) {
         name: "Organize your closet",
         ownerId: user.id,
         projectId: project.id,
-        due: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
+        due: new Date(
+          new Date(Date.now() + 1 * 24 * 60 * 60 * 1000)
+            .toISOString()
+            .split("T")[0]
+        ).toISOString(),
         description:
           "Say goodbye to that pile of clothes you've been meaning to donate and hello to a closet that Marie Kondo would be proud of",
         status: TASK_STATUS.NOT_STARTED
@@ -78,7 +82,11 @@ async function seedProjectWithTasks(user: User) {
         name: "Learn a new skill",
         ownerId: user.id,
         projectId: project.id,
-        due: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+        due: new Date(
+          new Date(Date.now() + 3 * 24 * 60 * 60 * 1000)
+            .toISOString()
+            .split("T")[0]
+        ).toISOString(),
         description:
           "Whether it's a language, a dance move, or a magic trick, challenge yourself to step out of your comfort zone and try something new",
         status: TASK_STATUS.STARTED
