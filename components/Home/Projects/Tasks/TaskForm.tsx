@@ -11,6 +11,7 @@ import Button from "@/components/common/Button"
 import { createTask, updateTask } from "@/lib/api"
 import { TASK_STATUS } from "@prisma/client"
 import { useRouter } from "next/navigation"
+import { formatDateForInput } from "@/lib/date"
 
 type TaskForm = {
   onClose: () => void
@@ -73,7 +74,7 @@ function TaskForm({
     () => ({
       name: initialData.name || "",
       description: initialData.description || "",
-      due: initialData.due || "",
+      due: initialData.due ? formatDateForInput(initialData.due) : "",
       status: initialData.status || ""
     }),
     [initialData]
