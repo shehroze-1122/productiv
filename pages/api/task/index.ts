@@ -40,10 +40,12 @@ export default async function createProject(
 
     if (!due) return res.status(404).json({ error: "Not enough data" })
 
+    const date = new Date(due)
+
     try {
       const tasks = await db.task.findMany({
         where: {
-          due,
+          due: date.toISOString(),
           ownerId: response.id
         }
       })
