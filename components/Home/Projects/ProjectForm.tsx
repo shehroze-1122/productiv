@@ -10,6 +10,7 @@ import Input from "@/components/common/Input"
 import Button from "@/components/common/Button"
 import { createProject, updateProject } from "@/lib/api"
 import { useRouter } from "next/navigation"
+import { formatDateForInput } from "@/lib/date"
 
 type ProjectForm = {
   onClose: () => void
@@ -74,7 +75,7 @@ function ProjectForm({
     () => ({
       name: initialData.name || "",
       description: initialData.description || "",
-      due: initialData.due ? new Date(initialData.due).toLocaleDateString() : ""
+      due: initialData.due ? formatDateForInput(initialData.due) : ""
     }),
     [initialData]
   )
