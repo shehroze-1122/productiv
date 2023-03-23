@@ -12,6 +12,7 @@ import ConfirmationDialog from "@/components/common/ConfirmationDialog"
 import { deleteProject } from "@/lib/api"
 import { useRouter } from "next/navigation"
 import clsx from "clsx"
+import { toast } from "react-toastify"
 
 type DeleteButton = {
   id: string
@@ -36,13 +37,18 @@ const DeleteButton: FC<DeleteButton> = ({ id, className }) => {
       e.preventDefault()
       try {
         setLoading(true)
-        const response = await deleteProject(id)
-        startTransition(() => {
-          closeModal()
-          router.refresh()
-        })
+        const { error } = await deleteProject(id)
+        if (error) {
+          toast.error(`Failed to delete the project. Error: ${error}`)
+        } else {
+          toast.success("Successfully deleted the project")
+          startTransition(() => {
+            closeModal()
+            router.refresh()
+          })
+        }
       } catch (error) {
-        console.log(error)
+        toast.error("Something went wrong!")
       } finally {
         setLoading(false)
       }

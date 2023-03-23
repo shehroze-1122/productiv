@@ -6,6 +6,7 @@ import Input from "../../common/Input"
 import Button from "../../common/Button"
 import Link from "next/link"
 import { updateAccount } from "@/lib/api"
+import { toast } from "react-toastify"
 
 type AccountSettings = {
   user: Omit<User, "createdAt" | "updatedAt"> & {
@@ -66,9 +67,14 @@ const AccountSettings: FC<AccountSettings> = ({ user }) => {
     }
     try {
       setLoading(true)
-      await updateAccount(dataObj)
+      const { error } = await updateAccount(dataObj)
+      if (error) {
+        toast.error(`Unable to save the changes. Error: ${error}`)
+      } else {
+        toast.success("Successfully saved the changes!")
+      }
     } catch (error) {
-      console.log(error)
+      toast.error("Something went wrong!")
     } finally {
       setLoading(false)
     }

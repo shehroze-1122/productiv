@@ -10,6 +10,7 @@ import Input from "@/components/common/Input"
 import Button from "@/components/common/Button"
 import { createProject, updateProject } from "@/lib/api"
 import { useRouter } from "next/navigation"
+import { toast } from "react-toastify"
 import { formatDateForInput } from "@/lib/date"
 
 type ProjectForm = {
@@ -103,18 +104,34 @@ function ProjectForm({
     }
     try {
       setLoading(true)
+      let isValid = true
+
       if (mode === "add") {
-        await createProject(dataObj)
+        const { error } = await createProject(dataObj)
+        if (error) {
+          isValid = false
+          toast.error(`Failed to create the project. Error: ${error}`)
+        } else {
+          toast.success("Successfully created the project!")
+        }
       } else {
-        await updateProject(initialData.id, dataObj)
+        const { error } = await updateProject(initialData.id, dataObj)
+        if (error) {
+          isValid = false
+          toast.error(`Failed to update the project. Error: ${error}`)
+        } else {
+          toast.success("Successfully updated the project!")
+        }
       }
-      startTransition(() => {
-        onClose()
-        router.refresh()
-        setState(initialState)
-      })
+      if (isValid) {
+        startTransition(() => {
+          onClose()
+          router.refresh()
+          setState(initialState)
+        })
+      }
     } catch (error) {
-      console.log(error)
+      toast.error("Something went wrong!")
     } finally {
       setLoading(false)
     }

@@ -11,6 +11,7 @@ import Button from "@/components/common/Button"
 import { createTask, updateTask } from "@/lib/api"
 import { TASK_STATUS } from "@prisma/client"
 import { useRouter } from "next/navigation"
+import { toast } from "react-toastify"
 import { formatDateForInput } from "@/lib/date"
 
 type TaskForm = {
@@ -100,18 +101,34 @@ function TaskForm({
 
     try {
       setLoading(true)
+      let isValid = true
+
       if (mode === "add") {
-        await createTask(dataObj)
+        const { error } = await createTask(dataObj)
+        if (error) {
+          isValid = false
+          toast.error(`Failed to create the task. Error: ${error}`)
+        } else {
+          toast.success("Successfully created the task!")
+        }
       } else {
-        await updateTask(initialData.id, dataObj)
+        const { error } = await updateTask(initialData.id, dataObj)
+        if (error) {
+          isValid = false
+          toast.error(`Failed to update the task. Error: ${error}`)
+        } else {
+          toast.success("Successfully updated the task!")
+        }
       }
-      startTransition(() => {
-        onClose()
-        router.refresh()
-        setState(initialState)
-      })
+      if (isValid) {
+        startTransition(() => {
+          onClose()
+          router.refresh()
+          setState(initialState)
+        })
+      }
     } catch (error) {
-      console.log(error)
+      toast.error("Something went wrong!")
     } finally {
       setLoading(false)
     }

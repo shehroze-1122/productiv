@@ -5,6 +5,7 @@ import Button from "@/components/common/Button"
 import ConfirmationDialog from "@/components/common/ConfirmationDialog"
 import { deleteTask } from "@/lib/api"
 import { useRouter } from "next/navigation"
+import { toast } from "react-toastify"
 
 type DeleteButton = {
   id: string
@@ -23,13 +24,18 @@ const DeleteButton: FC<DeleteButton> = ({ id }) => {
   const handleConfirm = useCallback(async () => {
     try {
       setLoading(true)
-      const response = await deleteTask(id)
-      startTransition(() => {
-        closeModal()
-        router.refresh()
-      })
+      const { error } = await deleteTask(id)
+      if (error) {
+        toast.error(`Failed to delete the task. Error: ${error}`)
+      } else {
+        toast.success("Successfully deleted the task")
+        startTransition(() => {
+          closeModal()
+          router.refresh()
+        })
+      }
     } catch (error) {
-      console.log(error)
+      toast.error("Something went wrong!")
     } finally {
       setLoading(false)
     }
