@@ -11,7 +11,6 @@ const getData = async (projectId: string) => {
   const tasks = await db.task.findMany({
     where: {
       ownerId: user?.id,
-      deleted: false,
       ...(projectId && { projectId }),
       NOT: {
         status: TASK_STATUS.COMPLETED
