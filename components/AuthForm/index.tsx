@@ -6,6 +6,8 @@ import Input from "@/components/common/Input"
 import Button from "@/components/common/Button"
 import { register, signin } from "@/lib/api"
 import { commonFields, configMap } from "./constants"
+import PasswordValidation from "./PasswordValidation"
+import { validatePassword } from "@/lib/password"
 
 type AuthForm = {
   mode: "signin" | "register"
@@ -57,9 +59,9 @@ const AuthForm: FC<AuthForm> = ({ mode }) => {
   return (
     <form onSubmit={handleSubmit} className="py-4 w-full">
       {mode === "register" && (
-        <div className="flex mb-4 justify-between">
+        <div className="flex mb-2 justify-between">
           <div className="pr-2">
-            <div className="text-lg mb-4 ml-2 text-black/50">First Name</div>
+            <div className="text-lg mb-1 ml-2 text-black/50">First Name</div>
             <Input
               required
               placeholder="First Name"
@@ -70,7 +72,7 @@ const AuthForm: FC<AuthForm> = ({ mode }) => {
             />
           </div>
           <div className="pl-2 w-50">
-            <div className="text-lg mb-4 ml-2 text-black/50">Last Name</div>
+            <div className="text-lg mb-1 ml-2 text-black/50">Last Name</div>
             <Input
               required
               placeholder="Last Name"
@@ -83,8 +85,8 @@ const AuthForm: FC<AuthForm> = ({ mode }) => {
         </div>
       )}
       {commonFields.map((field, i) => (
-        <div className="mb-4" key={i}>
-          <div className="text-lg mb-4 ml-2 text-black/50">{field.label}</div>
+        <div className="mb-2" key={i}>
+          <div className="text-lg mb-1 ml-2 text-black/50">{field.label}</div>
           <Input
             required={field.required}
             name={field.name}
@@ -95,10 +97,20 @@ const AuthForm: FC<AuthForm> = ({ mode }) => {
           />
         </div>
       ))}
-      {authError && <div className="text-red-700 mb-4">{authError}</div>}
-      <div className="w-full flex flex-col sm:flex-row justify-between">
+      {mode === "register" && state.password && (
+        <PasswordValidation password={state.password} />
+      )}
+      {authError && <div className="text-red-700 mt-2">{authError}</div>}
+      <div className="w-full flex flex-col sm:flex-row justify-between mt-3">
         <div>
-          <Button type="submit" intent="secondary" disabled={loading}>
+          <Button
+            type="submit"
+            intent="secondary"
+            disabled={
+              loading ||
+              (mode === "register" && !validatePassword("ALL", state.password))
+            }
+          >
             {loading ? "Loading..." : config.buttonText}
           </Button>
         </div>
