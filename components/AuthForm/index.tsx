@@ -108,7 +108,9 @@ const AuthForm: FC<AuthForm> = ({ mode }) => {
             intent="secondary"
             disabled={
               loading ||
-              (mode === "register" && !validatePassword("ALL", state.password))
+              (mode === "register" &&
+                state.password !== "" &&
+                !validatePassword("ALL", state.password))
             }
           >
             {loading ? "Loading..." : config.buttonText}
