@@ -14,7 +14,7 @@ const AuthRootLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <html className={inter.variable}>
       <head />
-      <body className="h-screen w-screen candy-mesh p-10">
+      <body className="h-screen w-screen animated-gradient p-10">
         <GlassPane className="w-full h-full p-2 flex items-center">
           <Sidebar />
           {children}
